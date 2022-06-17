@@ -1,4 +1,4 @@
-import * as ActionTypes from "../ActionTypes";
+// import * as ActionTypes from "../ActionTypes";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fakeStoreApi } from "../../shared/baseUrl";
 
@@ -38,32 +38,13 @@ export const fetchItemList = createAsyncThunk("items/fetchItems", async () => {
 });
 
 function failedLoadItems(error: { message: String }) {
-  return { type: ActionTypes.ITEM_LIST_FAILED, payload: error.message };
+  return { type: "ITEM_LIST_FAILED", payload: error.message };
 }
 
 const ItemSlice = createSlice({
   name: "item",
   initialState,
-  reducers: {
-    // loading({ isLoading, errMsg, items }: ItemState) {
-    //   isLoading = "pending";
-    //   errMsg = null;
-    //   items = [];
-    // },
-    // load(
-    //   { isLoading, errMsg, items }: ItemState,
-    //   action: PayloadAction<Item[]>
-    // ) {
-    //   const itemBeingAdded = action.payload;
-    //   isLoading = "succeeded";
-    //   errMsg = null;
-    //   items.concat(itemBeingAdded);
-    // },
-    // failed({ isLoading, errMsg }: ItemState, action: PayloadAction<string>) {
-    //   isLoading = "failed";
-    //   errMsg = action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchItemList.pending, (state, action) => {
@@ -71,14 +52,9 @@ const ItemSlice = createSlice({
       })
       .addCase(fetchItemList.fulfilled, (state, action) => {
         if (action.payload) {
-          // const a = action.payload.map((a: any) => a);
-          // console.log(
-          //   "fetchitem builder ok " +
-          //     typeof JSON.parse(JSON.stringify(action.payload))
-          // );
           const newItems = JSON.parse(JSON.stringify(action.payload));
-          state.items = state.items.concat(newItems);
           state.isLoading = "succeeded";
+          state.items = state.items.concat(newItems);
         }
       })
       .addCase(fetchItemList.rejected, (state, action) => {
@@ -92,5 +68,4 @@ const ItemSlice = createSlice({
   },
 });
 
-// export const { loading, load, failed } = ItemSlice.actions;
 export default ItemSlice.reducer;

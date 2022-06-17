@@ -1,3 +1,4 @@
+//
 export const ITEMS = [
   {
     id: 0,

@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
 import itemReducer, { ItemState } from "./item/item.reducer";
 
 export interface AppState {

@@ -17,6 +17,7 @@ class Gear extends Component<PropType, StateType> {
   static navigationOptions = {
     title: "Official Gears",
   };
+
   render() {
     const renderItem = ({ item }: { item: any }) => {
       return (
